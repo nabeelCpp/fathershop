@@ -38,7 +38,7 @@ export const FilterContextProvider = ({ children }) => {
         dispatch( { type: "FILTER_BY_RATINGS" } )
         dispatch( { type: "SORT_PRODUCTS" } )
         dispatch( { type: "PAGINATION" } )
-    },[state.sorting_value, state.filter, products, state.current_page])
+    },[state.all_products, state.sorting_value, state.filter, products, state.current_page])
 
 
     // To filter products based on category
@@ -74,6 +74,7 @@ export const FilterContextProvider = ({ children }) => {
 
     useEffect(() => {
         dispatch({type: "INIT_PRODUCTS", payload: products})
+        dispatch( { type: "PAGINATION" } )
     }, [products])
     return <FilterContext.Provider value={{...state, sorting, filterProductsBasedOnCategory, filterByRatings, filterByPrice, clearAll, jumpToNextPage }}>
         {children}
