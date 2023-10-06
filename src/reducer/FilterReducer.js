@@ -1,11 +1,4 @@
 const FilterReducer = (state, action) => {
-    /**
-     * Code for sorting all the products globally.
-     */
-    
-    /**
-     * End sorted code here.
-     */
 
     switch (action.type) {
         case "INIT_PRODUCTS":
@@ -26,12 +19,27 @@ const FilterReducer = (state, action) => {
         
 
         case "SET_FILTER_BY_CATEGORY_VALUE" : {
+            let categoryFilter = []
+            let {categoryName, checked} = action.payload
+            if(categoryName == 'All') {
+                categoryFilter.push('All')
+            }else{
+                let categories = [...state.filter.category]
+                categoryFilter = categories.filter(c => c != 'All')
+                if(checked) {
+                    categoryFilter.push(categoryName)
+                }else {
+                    categoryFilter = categoryFilter.filter(cF => categoryName != cF)
+                }
+            }
+            categoryFilter = !categoryFilter.length ? ['All'] : categoryFilter
+            
             return {
                 ...state,
                 current_page: 1, // for setting the page to 1 while products are filtered by category.
                 filter: {
                     ...state.filter,
-                    category: action.payload
+                    category: categoryFilter
                 }
             }
         }
@@ -41,7 +49,7 @@ const FilterReducer = (state, action) => {
             let { all_products, filter } = state
             const { category } = filter
             const sortProductsData = [...all_products]
-            const filtered_products_based_on_category = category == 'All' ? sortProductsData : sortProductsData.filter(fp => fp.category == category)
+            const filtered_products_based_on_category = category && category.includes('All') ? sortProductsData : sortProductsData.filter(fp => category.includes( fp.category ))
             
             return {
                 ...state,
@@ -140,7 +148,6 @@ const FilterReducer = (state, action) => {
         }
 
         case "SET_CURRENT_PAGE": {
-            console.log(action.payload)
             return {
                 ...state,
                 current_page: action.payload

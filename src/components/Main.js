@@ -4,12 +4,17 @@ import Header from './Main/Header'
 import Product from './Main/Product'
 import { useFilterContext } from '../context/filterContext'
 import ProductsList from './Main/ProductsList'
+import { useProductContext } from '../context/ProductContext'
 
 const Main = () => {
+    const { isLoading } = useProductContext()
     const {filtered_products, products_to_display, current_page, items_per_page, jumpToNextPage} = useFilterContext()
     const start = (current_page - 1) * items_per_page
     const endRecs = ( ( ( current_page - 1) * items_per_page) + items_per_page )
     const end = endRecs > filtered_products.length ? filtered_products.length : endRecs 
+    if(isLoading) {
+        return <div className='text-center'>Loading...</div>
+    }
     return (
         <main className="col-md-9">
             <Header start={start} end={end} total={filtered_products.length} />

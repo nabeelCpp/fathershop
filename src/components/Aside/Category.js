@@ -17,7 +17,7 @@ const Category = ({categories}) => {
                 {
                     categories.map((cat) => (
                         <label className="custom-control custom-checkbox" key={cat.name}>
-                            <input type="radio" className="custom-control-input" name='category' value={cat.name} onChange={ filterProductsBasedOnCategory } checked={cat.name == category} />
+                            <input type="checkbox" className="custom-control-input" name={'category_'+cat.name} value={cat.name} onChange={ filterProductsBasedOnCategory } checked={ category && category.includes(cat.name) } />
                             <div className="custom-control-label">{cat.name}  
                             <b className="badge badge-pill badge-light float-right">{cat.count}</b>  </div>
                         </label>

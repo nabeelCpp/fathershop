@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faDotCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -11,19 +11,15 @@ const Product = (product) => {
         <figure className="card card-product-grid">
             <div className="img-wrap"> 
                 <img src={thumbnail} className="img-fluid w-100 img--resp" />
-                <span className="badge badge-success text-xx-small">{brand}</span>
             </div>
             <figcaption className="p-1">
-                <b>{title}</b>
-                <div className="row">
-                    <div className="col-8">
-                        <span className="text-muted">$ {price}</span>
-                    </div>
-                    <div className="col-4">
-                        {rating.toFixed(1)} <FontAwesomeIcon icon={faStar} style={{color: '#2aca42', fontSize: '15px'}} />
-                    </div>
-
+                <div className='border border-default text-xx-small' >
+                    <FontAwesomeIcon className='text-danger px-1' icon={faDotCircle} /> 
+                    <FontAwesomeIcon className='text-info px-1' icon={faDotCircle} /> 
+                    <FontAwesomeIcon className='text-warning px-1' icon={faDotCircle} />
                 </div>
+                <b className='text-xx-small'>{title}</b>
+                <div className="text-muted text-xx-small">$ { price.toFixed(2) }</div>
             </figcaption>
         </figure>
     </div>
